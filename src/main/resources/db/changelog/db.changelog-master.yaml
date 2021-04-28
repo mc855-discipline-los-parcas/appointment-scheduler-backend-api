@@ -1,0 +1,254 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: create_admin_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: admin
+            columns:
+              - column:
+                  name: admin_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: admin_pk
+              - column:
+                  name: fullname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(15)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_pacient_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: pacient
+            columns:
+              - column:
+                  name: cpf
+                  type: varchar(11)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pacient_pk
+              - column:
+                  name: fullname
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: phone
+                  type: varchar(15)
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: create_specialty_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: specialty
+            columns:
+              - column:
+                  name: specialty_id
+                  type: int
+                  autoIncrement: true
+                  incrementBy: 1
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: specialty_pk
+              - column:
+                  name: specialty_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_doctor_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: doctor
+            columns:
+              - column:
+                  name: doctor_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: doctor_pk
+              - column:
+                  name: fullname
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone
+                  type: varchar(15)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: specialty
+                  type: int
+                  constraints:
+                    foreignKeyName: specialty_fk
+                    references: specialty(specialty_id)
+                    nullable: false
+              - column:
+                  name: crm
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: appointment_duration
+                  type: int
+                  remarks: doctor's appointment duration in minutes
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_appointment_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: appointment
+            columns:
+              - column:
+                  name: appointment_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: appointment_pk
+              - column:
+                  name: start_date_time
+                  type: DATETIME
+                  remarks: doctor's workday start time in minutes
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date_time
+                  type: DATETIME
+                  remarks: doctor's workday end time in minutes
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_schedule_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: schedule
+            columns:
+              - column:
+                  name: appointment_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: schedule_pk
+                    foreignKeyName: appointment_fk
+                    references: appointment(appointment_id)
+              - column:
+                  name: doctor_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: schedule_pk
+                    foreignKeyName: doctor_fk
+                    references: doctor(doctor_id)
+              - column:
+                  name: specialty
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: schedule_pk
+                    foreignKeyName: specialty_fk
+                    references: specialty(specialty_id)
+
+  - changeSet:
+      id: create_week_day_type
+      author: gabrieloswaldo
+      changes:
+        - sql: CREATE TYPE public.week_day AS ENUM ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY')
+
+  - changeSet:
+      id: create_work_day_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: work_day
+            columns:
+              - column:
+                  name: work_day_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: work_day_pk
+              - column:
+                  name: week_day
+                  type: week_day
+                  constraints:
+                    nullable: false
+              - column:
+                  name: work_start_time
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: work_end_time
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lunch_start_time
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lunch_end_time
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: create_doctor_work_day_table
+      author: gabrieloswaldo
+      changes:
+        - createTable:
+            tableName: doctor_work_day
+            columns:
+              - column:
+                  name: doctor_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: doctor_work_day_pk
+                    foreignKeyName: doctor_fk
+                    references: doctor(doctor_id)
+              - column:
+                  name: work_day_id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: doctor_work_day_pk
+                    foreignKeyName: work_day_fk
+                    references: work_day(work_day_id)
