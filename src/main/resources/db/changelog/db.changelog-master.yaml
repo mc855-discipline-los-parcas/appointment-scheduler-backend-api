@@ -30,18 +30,18 @@ databaseChangeLog:
                     nullable: false
 
   - changeSet:
-      id: create_pacient_table
+      id: create_patient_table
       author: gabrieloswaldo
       changes:
         - createTable:
-            tableName: pacient
+            tableName: patient
             columns:
               - column:
                   name: cpf
                   type: varchar(11)
                   constraints:
                     primaryKey: true
-                    primaryKeyName: pacient_pk
+                    primaryKeyName: patient_pk
               - column:
                   name: fullname
                   type: varchar(255)
