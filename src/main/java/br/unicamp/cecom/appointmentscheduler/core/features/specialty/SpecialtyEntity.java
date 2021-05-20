@@ -1,5 +1,7 @@
-package br.unicamp.cecom.appointmentscheduler.core;
+package br.unicamp.cecom.appointmentscheduler.core.features.specialty;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +15,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Data
 @NoArgsConstructor
-public class Specialty {
+@AllArgsConstructor
+@Builder
+public class SpecialtyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

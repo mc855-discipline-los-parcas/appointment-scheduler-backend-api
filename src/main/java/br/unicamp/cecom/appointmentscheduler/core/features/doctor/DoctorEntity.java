@@ -1,22 +1,24 @@
-package br.unicamp.cecom.appointmentscheduler.core;
+package br.unicamp.cecom.appointmentscheduler.core.features.doctor;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Patient {
+@AllArgsConstructor
+@Builder
+public class DoctorEntity {
 
     @Id
-    @Size(max = 11, min = 11, message = "CPF must have 11 characters")
-    private String cpf;
+    private UUID doctorId;
 
     @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
     @Max(value = 255, message = "Name must have a maximum of 255 characters")
@@ -30,4 +32,8 @@ public class Patient {
     @Max(value = 15, message = "Phone must have a maximum of 15 characters")
     private String phone;
 
+    @PrePersist
+    public void prePersist() {
+        this.doctorId = UUID.randomUUID();
+    }
 }
