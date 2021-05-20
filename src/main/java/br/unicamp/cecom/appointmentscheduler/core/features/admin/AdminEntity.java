@@ -1,10 +1,10 @@
-package br.unicamp.cecom.appointmentscheduler.core;
+package br.unicamp.cecom.appointmentscheduler.core.features.admin;
 
-import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
@@ -15,8 +15,9 @@ import java.util.UUID;
 @Entity
 @Data
 @NoArgsConstructor
-public class Admin {
-
+@AllArgsConstructor
+@Builder
+public class AdminEntity {
     @Id
     private UUID adminId;
 
