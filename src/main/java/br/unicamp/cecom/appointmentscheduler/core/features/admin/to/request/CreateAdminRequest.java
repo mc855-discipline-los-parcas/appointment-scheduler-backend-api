@@ -24,6 +24,6 @@ public class CreateAdminRequest {
     private String email;
 
     @NotBlank(message = "Phone must not be null and must contain at least one non-whitespace character")
-//    @Pattern(regexp = "\"^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$\"", message = "Invalid phone number")
+    @Pattern(regexp = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$", message = "Invalid phone number")
     private String phone;
 }
