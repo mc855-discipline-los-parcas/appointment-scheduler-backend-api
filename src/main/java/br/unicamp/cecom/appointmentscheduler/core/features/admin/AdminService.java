@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -42,18 +44,23 @@ public class AdminService {
         }
     }
 
-//    public void delete(final UUID adminId) {
-//        if (this.adminRepository.delete(adminId) == 0) {
-//            throw new NotFoundException("message.admin.notFound");
-//        }
-//    }
-//
-//    public Optional<AdminEntity> findById(final UUID adminId) {
-//        return Optional.ofNullable(this.adminRepository.findById(adminId))
-//            .orElseThrow(() -> new NotFoundException("message.admin.notFound"));
-//
-//    }
-//    public List<AdminEntity> listAdmins() {
-//        return this.adminRepository.listAdmins();
-//    }
+    public void delete(final UUID adminId) {
+        try {
+            adminRepository.deleteById(adminId);
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException("message.admin.notFound");
+        }
+    }
+
+    public Optional<AdminEntity> findById(final UUID adminId) {
+        try {
+            return adminRepository.findById(adminId);
+        } catch (EntityNotFoundException e) {
+            throw new NotFoundException("message.admin.notFound");
+        }
+
+    }
+    public List<AdminEntity> listAdmins() {
+        return this.adminRepository.findAll();
+    }
 }

@@ -36,23 +36,23 @@ public class AdminRestController {
         return noContent().build();
     }
 
-//    @DeleteMapping(value = "/{adminId}")
-//    public ResponseEntity delete(@Validated @PathVariable UUID adminId){
-//        adminService.delete(adminId);
-//        return noContent().build();
-//    }
-//
-//    @GetMapping(value = "/{adminId}" )
-//    public ResponseEntity findById(@Validated @PathVariable UUID adminId){
-//        return Optional.ofNullable(adminService.findById(adminId))
-//                .map(admin -> ResponseEntity.ok().body(admin))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
-//
-//    @GetMapping
-//    public ResponseEntity listAdmins(){
-//        return Optional.ofNullable(adminService.listAdmins())
-//                .map(admin -> ResponseEntity.ok().body(admin))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
+    @DeleteMapping(value = "/{adminId}")
+    public ResponseEntity delete(@Validated @PathVariable UUID adminId){
+        adminService.delete(adminId);
+        return noContent().build();
+    }
+
+    @GetMapping(value = "/{adminId}" )
+    public ResponseEntity findById(@Validated @PathVariable UUID adminId){
+        return Optional.ofNullable(adminService.findById(adminId))
+                .map(admin -> ResponseEntity.ok().body(admin))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity listAdmins(){
+        return Optional.ofNullable(adminService.listAdmins())
+                .map(admin -> ResponseEntity.ok().body(admin))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }
