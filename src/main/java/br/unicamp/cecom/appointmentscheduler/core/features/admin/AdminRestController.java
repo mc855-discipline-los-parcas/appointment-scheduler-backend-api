@@ -2,8 +2,8 @@ package br.unicamp.cecom.appointmentscheduler.core.features.admin;
 
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.CreateAdminRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.UpdateAdminRequest;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import static org.springframework.http.ResponseEntity.created;
 import static org.springframework.http.ResponseEntity.noContent;
 
 @RestController
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping(value = "/api/v1/admins", produces = APPLICATION_JSON_VALUE)
 public class AdminRestController {
 

@@ -5,6 +5,7 @@ import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.Crea
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.UpdateAdminRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AdminService {
 
     private final AdminRepository adminRepository;
@@ -58,8 +59,8 @@ public class AdminService {
         } catch (EntityNotFoundException e) {
             throw new NotFoundException("message.admin.notFound");
         }
-
     }
+
     public List<AdminEntity> listAdmins() {
         return this.adminRepository.findAll();
     }
