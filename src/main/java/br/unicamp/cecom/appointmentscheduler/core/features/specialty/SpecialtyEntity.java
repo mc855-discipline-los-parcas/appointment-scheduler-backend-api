@@ -20,7 +20,6 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @Table(name = "specialty")
 public class SpecialtyEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer specialtyId;

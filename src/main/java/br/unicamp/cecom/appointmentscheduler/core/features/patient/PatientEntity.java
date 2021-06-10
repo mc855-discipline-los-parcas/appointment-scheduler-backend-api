@@ -19,10 +19,9 @@ import javax.validation.constraints.Size;
 @Builder
 @Table(name = "patient")
 public class PatientEntity {
-
     @Id
     @Size(max = 11, min = 11, message = "CPF must have 11 characters")
-    private String cpf;
+    private String patientCPF;
 
     @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
     @Max(value = 255, message = "Name must have a maximum of 255 characters")
@@ -36,4 +35,8 @@ public class PatientEntity {
     @Max(value = 15, message = "Phone must have a maximum of 15 characters")
     private String phone;
 
+    @PrePersist
+    public void prePersist() {
+        this.patientCPF = "";
+    }
 }

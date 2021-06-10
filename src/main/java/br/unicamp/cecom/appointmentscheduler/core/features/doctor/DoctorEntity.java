@@ -17,7 +17,6 @@ import java.util.UUID;
 @Builder
 @Table(name = "doctor")
 public class DoctorEntity {
-
     @Id
     private UUID doctorId;
 

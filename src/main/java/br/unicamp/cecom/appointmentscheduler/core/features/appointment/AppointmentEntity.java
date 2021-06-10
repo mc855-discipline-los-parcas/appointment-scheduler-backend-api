@@ -6,9 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import java.util.UUID;
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,6 +16,19 @@ import java.util.UUID;
 @Builder
 @Table(name = "appointment")
 public class AppointmentEntity {
-  @Id
-  private UUID appointmentId;
+    @Id
+    private UUID appointmentId;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
+    private Date startDateTime;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
+    private Date endDateTime;
+
+    @PrePersist
+    public void prePersist() {
+        this.appointmentId = UUID.randomUUID();
+    }
 }
