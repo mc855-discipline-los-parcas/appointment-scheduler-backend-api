@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateAdminRequest {
+public class UpdatePatientRequest {
     @NotBlank(message = "CPF must not be null and must contain at least one non-whitespace character")
     @Max(value = 11, message = "CPF must have a maximum of 11 characters")
     @Min(value = 11, message = "CPF must have a minimum of 11 characters")
