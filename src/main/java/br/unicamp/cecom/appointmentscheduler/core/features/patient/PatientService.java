@@ -1,12 +1,15 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.patient;
 
 import br.unicamp.cecom.appointmentscheduler.core.exception.NotFoundException;
+import br.unicamp.cecom.appointmentscheduler.core.features.doctor.DoctorEntity;
 import br.unicamp.cecom.appointmentscheduler.core.features.patient.to.request.CreatePatientRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.patient.to.request.UpdatePatientRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -20,13 +23,16 @@ public class PatientService {
     private final PatientRepository patientRepository;
 
     public PatientEntity create(final CreatePatientRequest request) {
-
-        return patientRepository.save(PatientEntity.builder()
+        try {
+            return patientRepository.save(PatientEntity.builder()
                 .patientCPF(request.getCpf())
                 .email(request.getEmail())
                 .fullname(request.getFullName())
                 .phone(request.getPhone())
                 .build());
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
+        }
     }
 
     public void update(final String patientCPF, final UpdatePatientRequest request) {
@@ -41,7 +47,7 @@ public class PatientService {
 
             patientRepository.save(patient);
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException("message.patient.notFound");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.patient.notFound");
         }
     }
 
@@ -49,15 +55,16 @@ public class PatientService {
         try {
             patientRepository.deleteById(patientCPF);
         } catch (EntityNotFoundException e) {
-            throw new NotFoundException("message.patient.notFound");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.patient.notFound");
         }
     }
 
     public Optional<PatientEntity> findByCPF(final String patientCPF) {
-        try {
-            return patientRepository.findById(patientCPF);
-        } catch (EntityNotFoundException e) {
-            throw new NotFoundException("message.patient.notFound");
+        Optional<PatientEntity> patientEntity = patientRepository.findById(patientCPF);
+        if(patientEntity.isPresent()) {
+            return patientEntity;
+        } else{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"message.doctor.notFound");
         }
     }
 

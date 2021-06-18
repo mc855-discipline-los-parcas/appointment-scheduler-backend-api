@@ -9,6 +9,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -16,17 +17,16 @@ import javax.validation.constraints.Pattern;
 @Builder
 public class UpdatePatientRequest {
     @NotBlank(message = "CPF must not be null and must contain at least one non-whitespace character")
-    @Max(value = 11, message = "CPF must have a maximum of 11 characters")
-    @Min(value = 11, message = "CPF must have a minimum of 11 characters")
+    @Size(max = 11, message = "CPF must have a maximum of 11 characters")
     @Pattern(regexp="([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}-[0-9]{2})|([0-9]{11})", message = "Invalid CPF number")
     private String cpf;
 
     @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
-    @Max(value = 255, message = "Name must have a maximum of 255 characters")
+    @Size(max = 255, message = "Name must have a maximum of 255 characters")
     private String fullName;
 
     @NotBlank(message = "Email must not be null and must contain at least one non-whitespace character")
-    @Max(value = 50, message = "Email must have a maximum of 50 characters")
+    @Size(max = 50, message = "Email must have a maximum of 50 characters")
     private String email;
 
     @NotBlank(message = "Phone must not be null and must contain at least one non-whitespace character")

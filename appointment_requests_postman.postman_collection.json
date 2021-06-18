@@ -1,0 +1,626 @@
+{
+  "info": {
+    "name": "MC855",
+    "_postman_id": "8df6126a-7f98-43c6-9a6f-50b42b0365c2",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Admin",
+      "description": "",
+      "item": [
+        {
+          "id": "c7df871b-d264-46d5-a930-6493ea959da5",
+          "name": "Create Admin",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "admins"
+              ],
+              "port": "8080"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Felipe dasdasasas\",\r\n  \"email\": \"felipe@teste.com\",\r\n  \"phone\": \"(11)99999-9999\"\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "a72a25b1-37c4-465c-9817-5fade5cb0661"
+            }
+          ]
+        },
+        {
+          "id": "94e979de-d125-4f14-8492-86f0aec87ef8",
+          "name": "Get Admin by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "admins/15e9735f-662b-4e4b-ba62-8a16b130dc95"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "12ed7db1-6370-4e82-8db7-a628b8fe8eb3"
+            }
+          ]
+        },
+        {
+          "id": "46a33a8a-434a-4690-bd0d-fc20b7c81932",
+          "name": "Get Admins",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "admins/"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "2ed9b75f-a733-4261-ad9c-9ca5d96732da"
+            }
+          ]
+        },
+        {
+          "id": "9ce17fb0-6312-4a50-bc2b-7ca07657c9ea",
+          "name": "Update Admin",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "admins/15e9735f-662b-4e4b-ba62-8a16b130dc95"
+              ],
+              "port": "8080"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"berbare\",\r\n  \"email\": \"berbare@teste.com\",\r\n  \"phone\": \"11 11111-1111\"\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "e63fe771-0368-4889-a4e2-364bbe16df6d"
+            }
+          ]
+        },
+        {
+          "id": "3b93e969-ca99-47bd-93f8-028d5870fd64",
+          "name": "Delete Admin by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "admins/15e9735f-662b-4e4b-ba62-8a16b130dc95"
+              ],
+              "port": "8080"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "caea60df-f239-47cb-b511-9b53305a7bba"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Doctor",
+      "description": "",
+      "item": [
+        {
+          "id": "3977a248-d4cc-49dd-ab61-5bcd2b3bf607",
+          "name": "Create Doctor",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "doctors"
+              ],
+              "port": "8080"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Felipe doctor teste\",\r\n  \"email\": \"felipe@teste.com\",\r\n  \"phone\": \"(11)99999-9999\",\r\n  \"specialty\": \"CARDIOLOGY\",\r\n  \"crm\": \"teste\",\r\n  \"appointmentDuration\": 20\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "9a8b4d41-bf9d-4e16-bc93-66e9242a322d"
+            }
+          ]
+        },
+        {
+          "id": "892bf29f-ed5f-488b-a3cc-c6365daf5cc9",
+          "name": "Get Doctor by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "doctors/8b2626ed-ec58-40a0-a5e1-ea4a656e9b"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "b0dacacd-27c2-4060-b846-ac84a652e35a"
+            }
+          ]
+        },
+        {
+          "id": "d39fcccf-2845-4017-8d8e-5990bfd29e0e",
+          "name": "Get Doctor",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "doctors/"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "8c632cc1-0fa8-4da7-9b50-59ae2f08097f"
+            }
+          ]
+        },
+        {
+          "id": "36323c38-232a-4cae-890f-6bacaf1f7017",
+          "name": "Update Doctor",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "doctors/8b2626ed-ec58-40a0-a5e1-ea4a656e9b38"
+              ],
+              "port": "8080"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Felipe doctor update\",\r\n  \"email\": \"felipe@teste.com\",\r\n  \"phone\": \"(11)99999-9999\",\r\n  \"specialty\": \"CARDIOLOGY\",\r\n  \"crm\": \"teste\",\r\n  \"appointmentDuration\": 30\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "6392310b-54c3-4eab-ab8e-581ed5d84338"
+            }
+          ]
+        },
+        {
+          "id": "59215129-0ba0-4281-ab2d-98db4b65307d",
+          "name": "Delete Doctor by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "doctors/8b2626ed-ec58-40a0-a5e1-ea4a656e9b38"
+              ],
+              "port": "8080"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "ee7e64b2-69a9-4610-a3d7-065f8edf5127"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "description": "",
+      "item": [
+        {
+          "id": "d8823dec-fc6f-48c6-b124-1aeccc167a85",
+          "name": "Create Patient",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "patients"
+              ],
+              "port": "8080"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cpf\": \"12591389098\",\r\n  \"fullName\": \"berbare paciente\",\r\n  \"email\": \"berbare@paciente.com\",\r\n  \"phone\": \"(11)99999-1111\"\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "a0b9b63e-2fe5-40e8-9eb8-2d820a255434"
+            }
+          ]
+        },
+        {
+          "id": "0ec24576-9162-4c56-bbfa-98e811bfd367",
+          "name": "Get Patient by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "patients/12591389098"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "c625f3ee-4310-49a0-91f5-6f036359cdfa"
+            }
+          ]
+        },
+        {
+          "id": "e0d4092f-cb3f-490a-8e36-48cd4c2b076c",
+          "name": "Get Patients",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "patients/"
+              ],
+              "port": "8080"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "4fba86d2-948b-4b40-b383-9612a575c0f0"
+            }
+          ]
+        },
+        {
+          "id": "74569880-27d2-425b-9fb4-efe8628556f8",
+          "name": "Update Patient",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "patients/47925614005"
+              ],
+              "port": "8080"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "description": "",
+                "disabled": false
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"cpf\": \"47925614005\",\r\n  \"fullName\": \"berbare paciente\",\r\n  \"email\": \"felipe@paciente.com\",\r\n  \"phone\": \"(11)99999-9999\"\r\n}",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "200f9199-a861-4546-8429-8e7057185d45"
+            }
+          ]
+        },
+        {
+          "id": "130b2d26-3427-48da-b987-e33f531dd4be",
+          "name": "Delete Patient by Id",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "host": "localhost",
+              "path": [
+                "api",
+                "v1",
+                "patients/12591389098"
+              ],
+              "port": "8080"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "disabled": false
+            },
+            "description": ""
+          },
+          "response": [
+            {
+              "header": [],
+              "code": 200,
+              "name": "Response_200",
+              "id": "27159a4b-cfc6-4a5a-9cba-ce9f10871a51"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": []
+}

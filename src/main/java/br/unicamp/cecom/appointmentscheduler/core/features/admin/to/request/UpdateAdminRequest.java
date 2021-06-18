@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
@@ -16,11 +17,11 @@ import javax.validation.constraints.Pattern;
 public class UpdateAdminRequest {
 
     @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
-    @Max(value = 255, message = "Name must have a maximum of 255 characters")
+    @Size(max = 255, message = "Name must have a maximum of 255 characters")
     private String fullName;
 
     @NotBlank(message = "Email must not be null and must contain at least one non-whitespace character")
-    @Max(value = 50, message = "Email must have a maximum of 50 characters")
+    @Size(max = 50, message = "Email must have a maximum of 50 characters")
     private String email;
 
     @NotBlank(message = "Phone must not be null and must contain at least one non-whitespace character")
