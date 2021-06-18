@@ -37,7 +37,7 @@ databaseChangeLog:
             tableName: patient
             columns:
               - column:
-                  name: cpf
+                  name: patient_cpf
                   type: varchar(11)
                   constraints:
                     primaryKey: true
@@ -57,27 +57,6 @@ databaseChangeLog:
                   type: varchar(15)
                   constraints:
                     nullable: true
-
-  - changeSet:
-      id: create_specialty_table
-      author: gabrieloswaldo
-      changes:
-        - createTable:
-            tableName: specialty
-            columns:
-              - column:
-                  name: specialty_id
-                  type: int
-                  autoIncrement: true
-                  incrementBy: 1
-                  constraints:
-                    primaryKey: true
-                    primaryKeyName: specialty_pk
-              - column:
-                  name: specialty_name
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
 
   - changeSet:
       id: create_doctor_table
@@ -109,10 +88,8 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: specialty
-                  type: int
+                  type: varchar(50)
                   constraints:
-                    foreignKeyName: specialty_fk
-                    references: specialty(specialty_id)
                     nullable: false
               - column:
                   name: crm
@@ -176,19 +153,13 @@ databaseChangeLog:
                     foreignKeyName: doctor_fk
                     references: doctor(doctor_id)
               - column:
-                  name: specialty
-                  type: int
+                  name: patient_cpf
+                  type: varchar
                   constraints:
                     primaryKey: true
                     primaryKeyName: schedule_pk
-                    foreignKeyName: specialty_fk
-                    references: specialty(specialty_id)
-
-  - changeSet:
-      id: create_week_day_type
-      author: gabrieloswaldo
-      changes:
-        - sql: CREATE TYPE public.week_day AS ENUM ('SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY')
+                    foreignKeyName: patient_fk
+                    references: patient(patient_cpf)
 
   - changeSet:
       id: create_work_day_table
@@ -205,7 +176,7 @@ databaseChangeLog:
                     primaryKeyName: work_day_pk
               - column:
                   name: week_day
-                  type: week_day
+                  type: varchar(50)
                   constraints:
                     nullable: false
               - column:

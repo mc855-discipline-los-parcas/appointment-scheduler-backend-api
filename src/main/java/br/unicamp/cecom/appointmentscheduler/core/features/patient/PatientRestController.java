@@ -4,6 +4,7 @@ import br.unicamp.cecom.appointmentscheduler.core.features.patient.to.request.Cr
 import br.unicamp.cecom.appointmentscheduler.core.features.patient.to.request.UpdatePatientRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class PatientRestController {
 
     @GetMapping(value = "/{patientCPF}" )
     public ResponseEntity findById(@Validated @PathVariable String patientCPF){
-        return Optional.ofNullable(patientService.findById(patientCPF))
+        return Optional.ofNullable(patientService.findByCPF(patientCPF))
                 .map(patient -> ResponseEntity.ok().body(patient))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

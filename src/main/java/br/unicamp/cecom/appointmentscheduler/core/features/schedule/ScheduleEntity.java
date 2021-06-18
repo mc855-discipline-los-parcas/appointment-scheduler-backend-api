@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -18,12 +16,7 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "schedule")
 public class ScheduleEntity {
-    @Id
-    private UUID doctorId;
 
-    @Id
-    private String patientCPF;
-
-    @Id
-    private UUID appointmentId;
+    @EmbeddedId
+    private ScheduleEntityKey id;
 }

@@ -22,7 +22,7 @@ public class PatientService {
     public PatientEntity create(final CreatePatientRequest request) {
 
         return patientRepository.save(PatientEntity.builder()
-                .cpf(request.getCPF())
+                .patientCPF(request.getCpf())
                 .email(request.getEmail())
                 .fullname(request.getFullName())
                 .phone(request.getPhone())
@@ -34,7 +34,7 @@ public class PatientService {
         try {
             PatientEntity patient = patientRepository.getOne(patientCPF);
 
-            patient.setCpf(request.getCPF());
+            patient.setPatientCPF(request.getCpf());
             patient.setEmail(request.getEmail());
             patient.setFullname(request.getFullName());
             patient.setPhone(request.getPhone());
@@ -47,7 +47,7 @@ public class PatientService {
 
     public void delete(final String patientCPF) {
         try {
-            patientRepository.deleteByCPF(patientCPF);
+            patientRepository.deleteById(patientCPF);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException("message.patient.notFound");
         }
@@ -55,7 +55,7 @@ public class PatientService {
 
     public Optional<PatientEntity> findByCPF(final String patientCPF) {
         try {
-            return patientRepository.findByCPF(patientCPF);
+            return patientRepository.findById(patientCPF);
         } catch (EntityNotFoundException e) {
             throw new NotFoundException("message.patient.notFound");
         }

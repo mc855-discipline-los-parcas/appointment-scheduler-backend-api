@@ -36,8 +36,4 @@ public class PatientEntity {
     @Max(value = 15, message = "Phone must have a maximum of 15 characters")
     private String phone;
 
-    @PrePersist
-    public void prePersist() {
-        this.patientCPF = "";
-    }
 }

@@ -1,19 +1,15 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.work_day;
 
+import br.unicamp.cecom.appointmentscheduler.core.enums.WeekDay;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
-import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -26,18 +22,19 @@ public class WorkDayEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer workDayId;
 
-    @NotBlank(message = "WeekDay must not be null and must contain at least one non-whitespace character")
-    private String weekDay;
+    @NotBlank(message = "Week Day must not be null and must contain at least one non-whitespace character")
+    @Enumerated(EnumType.STRING)
+    private WeekDay weekDay;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Timestamp workStartTime;
+    @Temporal(TemporalType.TIME)
+    private Date workStartTime;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Timestamp workEndTime;
+    @Temporal(TemporalType.TIME)
+    private Date workEndTime;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Timestamp lunchStartTime;
+    @Temporal(TemporalType.TIME)
+    private Date lunchStartTime;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Timestamp lunchEndTime;
+    @Temporal(TemporalType.TIME)
+    private Date lunchEndTime;
 }

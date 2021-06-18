@@ -4,6 +4,7 @@ import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.Cre
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.UpdateDoctorRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,14 +45,14 @@ public class DoctorRestController {
 
     @GetMapping(value = "/{doctorId}" )
     public ResponseEntity findById(@Validated @PathVariable UUID doctorId){
-        return Optional.ofNullable(doctorService.findById(doctorId))
+        return Optional.of(doctorService.findById(doctorId))
                 .map(doctor -> ResponseEntity.ok().body(doctor))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public ResponseEntity listDoctors(){
-        return Optional.ofNullable(doctorService.listDoctors())
+        return Optional.of(doctorService.listDoctors())
                 .map(doctor -> ResponseEntity.ok().body(doctor))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

@@ -22,11 +22,11 @@ public class AppointmentEntity {
     @Id
     private UUID appointmentId;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
     private Date startDateTime;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
     private Date endDateTime;
 
