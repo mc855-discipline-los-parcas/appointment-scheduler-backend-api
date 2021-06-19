@@ -1,7 +1,6 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.doctor;
 
 import br.unicamp.cecom.appointmentscheduler.core.enums.Specialty;
-import br.unicamp.cecom.appointmentscheduler.core.exception.NotFoundException;
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.CreateDoctorRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.UpdateDoctorRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,6 @@ public class DoctorService {
                     .phone(request.getPhone())
                     .specialty(Specialty.valueOf(request.getSpecialty()))
                     .crm(request.getCrm())
-                    .appointmentDuration(request.getAppointmentDuration())
                     .build());
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
@@ -49,7 +47,6 @@ public class DoctorService {
             doctor.setFullname(request.getFullName());
             doctor.setPhone(request.getPhone());
             doctor.setCrm(request.getCrm());
-            doctor.setAppointmentDuration(request.getAppointmentDuration());
             doctor.setSpecialty(Specialty.valueOf(request.getSpecialty()));
 
             doctorRepository.save(doctor);
@@ -79,5 +76,13 @@ public class DoctorService {
 
     public List<DoctorEntity> listDoctors() {
         return this.doctorRepository.findAll();
+    }
+
+    public List<DoctorEntity> findBySpecialty(final String specialty) {
+        try {
+            return this.doctorRepository.findBySpecialty(Specialty.valueOf(specialty));
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
+        }
     }
 }

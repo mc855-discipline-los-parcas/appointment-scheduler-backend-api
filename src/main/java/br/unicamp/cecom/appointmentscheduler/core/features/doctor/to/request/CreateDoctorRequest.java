@@ -1,16 +1,11 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request;
 
-import br.unicamp.cecom.appointmentscheduler.core.enums.Specialty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -39,7 +34,4 @@ public class CreateDoctorRequest {
     @NotBlank(message = "Specialty must be not null")
     @Size(max = 50, message = "Specialty must have a maximum of 50 characters")
     private String specialty;
-
-    @NotNull(message = "Appointment Duration must be not null")
-    private Integer appointmentDuration;
 }

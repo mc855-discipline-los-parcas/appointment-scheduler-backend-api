@@ -6,13 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -47,9 +41,6 @@ public class DoctorEntity {
     @NotNull(message = "Specialty must be not null")
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
-
-    @NotNull(message = "Appointment Duration must be not null")
-    private Integer appointmentDuration;
 
     @PrePersist
     public void prePersist() {

@@ -4,7 +4,6 @@ import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.Cre
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.UpdateDoctorRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +25,14 @@ public class DoctorRestController {
     private final DoctorService doctorService;
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@Validated @RequestBody CreateDoctorRequest request){
+    public ResponseEntity create(@Validated @RequestBody CreateDoctorRequest request) {
         final DoctorEntity doctor = doctorService.create(request);
         return created(URI.create(format("/api/v1/doctors/%s", doctor.getDoctorId()))).build();
     }
 
     @PutMapping(value = "/{doctorId}")
-    public ResponseEntity update(@Validated @PathVariable UUID doctorId, @Validated @RequestBody UpdateDoctorRequest request) {
+    public ResponseEntity update(@Validated @PathVariable UUID doctorId,
+                                 @Validated @RequestBody UpdateDoctorRequest request) {
         doctorService.update(doctorId, request);
         return noContent().build();
     }
@@ -55,5 +55,10 @@ public class DoctorRestController {
         return Optional.of(doctorService.listDoctors())
                 .map(doctor -> ResponseEntity.ok().body(doctor))
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping(value = "/specialty")
+    public ResponseEntity findBySpecialty(@RequestParam final String specialty){
+        return ResponseEntity.ok(doctorService.findBySpecialty(specialty));
     }
 }
