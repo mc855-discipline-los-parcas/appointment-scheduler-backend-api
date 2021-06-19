@@ -1,5 +1,7 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.appointment;
 
+import br.unicamp.cecom.appointmentscheduler.core.features.doctor.DoctorEntity;
+import br.unicamp.cecom.appointmentscheduler.core.features.patient.PatientEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,14 +23,13 @@ import java.util.Date;
 @Builder
 @Table(name = "appointment")
 public class AppointmentEntity {
+
     @Id
     private UUID appointmentId;
 
     @NotNull
-    // TODO adicionar relacionamento com Doctor
     private UUID doctorId;
 
-    @Size(max = 11, min = 11, message = "CPF must have 11 characters")
     private String patientCpf;
 
     @NotNull

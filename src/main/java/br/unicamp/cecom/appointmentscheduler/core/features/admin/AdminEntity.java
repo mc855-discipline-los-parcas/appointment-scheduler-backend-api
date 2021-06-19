@@ -21,6 +21,7 @@ import java.util.UUID;
 @Builder
 @Table(name = "admin")
 public class AdminEntity {
+
     @Id
     private UUID adminId;
 

@@ -23,16 +23,12 @@ public class PatientService {
     private final PatientRepository patientRepository;
 
     public PatientEntity create(final CreatePatientRequest request) {
-        try {
-            return patientRepository.save(PatientEntity.builder()
-                .patientCPF(request.getCpf())
-                .email(request.getEmail())
-                .fullname(request.getFullName())
-                .phone(request.getPhone())
-                .build());
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
-        }
+        return patientRepository.save(PatientEntity.builder()
+            .patientCPF(request.getCpf())
+            .email(request.getEmail())
+            .fullname(request.getFullName())
+            .phone(request.getPhone())
+            .build());
     }
 
     public void update(final String patientCPF, final UpdatePatientRequest request) {
