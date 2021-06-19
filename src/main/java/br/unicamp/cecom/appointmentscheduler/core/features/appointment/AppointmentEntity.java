@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,13 +24,17 @@ public class AppointmentEntity {
     @Id
     private UUID appointmentId;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
-    private Date startDateTime;
+    @NotNull
+    // TODO adicionar relacionamento com Doctor
+    private UUID doctorId;
 
+    @Size(max = 11, min = 11, message = "CPF must have 11 characters")
+    private String patientCpf;
+
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
-    private Date endDateTime;
+    private Date dateTime;
 
     @PrePersist
     public void prePersist() {
