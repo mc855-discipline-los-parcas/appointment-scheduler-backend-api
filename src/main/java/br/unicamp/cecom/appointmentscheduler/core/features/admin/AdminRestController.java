@@ -4,10 +4,12 @@ import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.Crea
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.UpdateAdminRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +27,7 @@ public class AdminRestController {
     private final AdminService adminService;
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@Validated @RequestBody CreateAdminRequest request){
+    public ResponseEntity create(@Validated @RequestBody CreateAdminRequest request) {
         final AdminEntity admin = adminService.create(request);
         return created(URI.create(format("/api/v1/admins/%s", admin.getAdminId()))).build();
     }
@@ -37,20 +39,20 @@ public class AdminRestController {
     }
 
     @DeleteMapping(value = "/{adminId}")
-    public ResponseEntity delete(@Validated @PathVariable UUID adminId){
+    public ResponseEntity delete(@Validated @PathVariable UUID adminId) {
         adminService.delete(adminId);
         return noContent().build();
     }
 
-    @GetMapping(value = "/{adminId}" )
-    public ResponseEntity findById(@Validated @PathVariable UUID adminId){
+    @GetMapping(value = "/{adminId}")
+    public ResponseEntity findById(@Validated @PathVariable UUID adminId) {
         return Optional.ofNullable(adminService.findById(adminId))
                 .map(admin -> ResponseEntity.ok().body(admin))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity listAdmins(){
+    public ResponseEntity listAdmins() {
         return Optional.ofNullable(adminService.listAdmins())
                 .map(admin -> ResponseEntity.ok().body(admin))
                 .orElseGet(() -> ResponseEntity.notFound().build());

@@ -1,44 +1,35 @@
-package br.unicamp.cecom.appointmentscheduler.core.features.admin;
+package br.unicamp.cecom.appointmentscheduler.core.features.patient.to.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import javax.validation.constraints.Max;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.UUID;
 
-@Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-@Table(name = "admin")
-public class AdminEntity {
+public class CreatePatientRequest {
 
-    @Id
-    private UUID adminId;
+    @NotBlank(message = "CPF must not be null and must contain at least one non-whitespace character")
+    @Size(max = 11, message = "CPF must have a maximum of 11 characters")
+    @Pattern(regexp="([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}-[0-9]{2})|([0-9]{11})", message = "Invalid CPF number")
+    private String cpf;
 
     @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
     @Size(max = 255, message = "Name must have a maximum of 255 characters")
-    private String fullname;
+    private String fullName;
 
     @NotBlank(message = "Email must not be null and must contain at least one non-whitespace character")
     @Size(max = 50, message = "Email must have a maximum of 50 characters")
     private String email;
 
     @NotBlank(message = "Phone must not be null and must contain at least one non-whitespace character")
-    @Size(max = 15, message = "Phone must have a maximum of 15 characters")
+    @Pattern(regexp = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$", message = "Invalid phone number")
     private String phone;
-
-    @PrePersist
-    public void prePersist() {
-        this.adminId = UUID.randomUUID();
-    }
 }
