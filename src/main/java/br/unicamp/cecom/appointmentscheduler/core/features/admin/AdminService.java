@@ -1,11 +1,12 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.admin;
 
-import br.unicamp.cecom.appointmentscheduler.core.exception.NotFoundException;
+import br.unicamp.cecom.appointmentscheduler.core.exceptions.NotFoundException;
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.CreateAdminRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.admin.to.request.UpdateAdminRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -48,15 +49,16 @@ public class AdminService {
     public void delete(final UUID adminId) {
         try {
             adminRepository.deleteById(adminId);
-        } catch (EntityNotFoundException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new NotFoundException("message.admin.notFound");
         }
     }
 
     public Optional<AdminEntity> findById(final UUID adminId) {
-        try {
-            return adminRepository.findById(adminId);
-        } catch (EntityNotFoundException e) {
+        Optional<AdminEntity> adminEntity = adminRepository.findById(adminId);
+        if(adminEntity.isPresent()) {
+            return adminEntity;
+        } else{
             throw new NotFoundException("message.admin.notFound");
         }
     }

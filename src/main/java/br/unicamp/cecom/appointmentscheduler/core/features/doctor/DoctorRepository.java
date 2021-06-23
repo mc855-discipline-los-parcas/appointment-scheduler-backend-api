@@ -13,4 +13,6 @@ import java.util.UUID;
 public interface DoctorRepository extends JpaRepository<DoctorEntity, UUID> {
 
     List<DoctorEntity> findBySpecialty(final Specialty specialty);
+
+    DoctorEntity findByCrm(final String specialty);
 }

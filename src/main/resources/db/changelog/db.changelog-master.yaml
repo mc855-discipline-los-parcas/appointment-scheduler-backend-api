@@ -96,6 +96,7 @@ databaseChangeLog:
                   type: varchar(50)
                   constraints:
                     nullable: false
+                    unique: true
 
   - changeSet:
       id: create_appointment_table

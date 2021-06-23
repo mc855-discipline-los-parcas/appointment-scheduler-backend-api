@@ -5,31 +5,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import static br.unicamp.cecom.appointmentscheduler.core.utils.RegexValidations.*;
+import static br.unicamp.cecom.appointmentscheduler.core.utils.ValidationMessages.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UpdatePatientRequest {
-    @NotBlank(message = "CPF must not be null and must contain at least one non-whitespace character")
-    @Size(max = 11, message = "CPF must have a maximum of 11 characters")
-    @Pattern(regexp="([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}-[0-9]{2})|([0-9]{11})", message = "Invalid CPF number")
-    private String cpf;
 
-    @NotBlank(message = "Name must not be null and must contain at least one non-whitespace character")
-    @Size(max = 255, message = "Name must have a maximum of 255 characters")
+    @NotBlank(message = FULLNAME_NOT_BLANK_MSG)
+    @Size(max = 255, message = FULLNAME_SIZE_MSG)
+    @Pattern(regexp = FULLNAME_REGEX, message = FULLNAME_PATTERN_MSG)
     private String fullName;
 
-    @NotBlank(message = "Email must not be null and must contain at least one non-whitespace character")
-    @Size(max = 50, message = "Email must have a maximum of 50 characters")
+    @NotBlank(message = EMAIL_NOT_BLANK_MSG)
+    @Email(regexp = EMAIL_REGEX, message = EMAIL_PATTERN_MSG)
     private String email;
 
-    @NotBlank(message = "Phone must not be null and must contain at least one non-whitespace character")
-    @Pattern(regexp = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$", message = "Invalid phone number")
+    @NotBlank(message = PHONE_NOT_BLANK_MSG)
+    @Pattern(regexp = PHONE_REGEX, message = PHONE_PATTERN_MSG)
     private String phone;
 }

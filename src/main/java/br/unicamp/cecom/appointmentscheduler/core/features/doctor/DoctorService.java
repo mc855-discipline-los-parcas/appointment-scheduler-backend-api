@@ -1,6 +1,7 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.doctor;
 
 import br.unicamp.cecom.appointmentscheduler.core.enums.Specialty;
+import br.unicamp.cecom.appointmentscheduler.core.exceptions.NotFoundException;
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.CreateDoctorRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.to.request.UpdateDoctorRequest;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +25,23 @@ public class DoctorService {
     private final DoctorRepository doctorRepository;
 
     public DoctorEntity create(final CreateDoctorRequest request) {
-        try {
-            return doctorRepository.save(DoctorEntity.builder()
-                    .doctorId(UUID.randomUUID())
-                    .email(request.getEmail())
-                    .fullname(request.getFullName())
-                    .phone(request.getPhone())
-                    .specialty(Specialty.valueOf(request.getSpecialty()))
-                    .crm(request.getCrm())
-                    .build());
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
+
+        if(this.findByCrm(request.getCrm()) == null) {
+            try {
+                return doctorRepository.save(DoctorEntity.builder()
+                        .doctorId(UUID.randomUUID())
+                        .email(request.getEmail())
+                        .fullname(request.getFullName())
+                        .phone(request.getPhone())
+                        .specialty(Specialty.valueOf(request.getSpecialty()))
+                        .crm(request.getCrm())
+                        .build());
+
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "message.crm.alreadyExists");
         }
     }
 
@@ -51,9 +58,9 @@ public class DoctorService {
 
             doctorRepository.save(doctor);
         } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"message.doctor.notFound");
+            throw new NotFoundException("message.doctor.notFound");
         } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"message.specialty.invalid");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
         }
     }
 
@@ -61,7 +68,7 @@ public class DoctorService {
         try {
             doctorRepository.deleteById(doctorId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"message.doctor.notFound");
+            throw new NotFoundException("message.doctor.notFound");
         }
     }
 
@@ -70,7 +77,7 @@ public class DoctorService {
        if(doctorEntity.isPresent()) {
            return doctorEntity;
        } else{
-           throw new ResponseStatusException(HttpStatus.NOT_FOUND,"message.doctor.notFound");
+           throw new NotFoundException("message.doctor.notFound");
        }
     }
 
@@ -84,5 +91,9 @@ public class DoctorService {
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "message.specialty.invalid");
         }
+    }
+
+    public DoctorEntity findByCrm(final String crm) {
+        return this.doctorRepository.findByCrm(crm);
     }
 }
