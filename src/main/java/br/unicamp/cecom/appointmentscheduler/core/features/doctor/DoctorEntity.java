@@ -1,6 +1,8 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.doctor;
 
 import br.unicamp.cecom.appointmentscheduler.core.enums.Specialty;
+import br.unicamp.cecom.appointmentscheduler.core.features.appointment.AppointmentEntity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
 import java.util.UUID;
 
 import static br.unicamp.cecom.appointmentscheduler.core.utils.RegexValidations.*;
@@ -45,6 +48,10 @@ public class DoctorEntity {
     @NotNull(message = DOCTOR_SPECIALTY_NOT_NULL_MSG)
     @Enumerated(EnumType.STRING)
     private Specialty specialty;
+
+    @OneToMany(mappedBy = "doctor")
+    @JsonManagedReference
+    private List<AppointmentEntity> appointmentEntityList;
 
     @PrePersist
     public void prePersist() {

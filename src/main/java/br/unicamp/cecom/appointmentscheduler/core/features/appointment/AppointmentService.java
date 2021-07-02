@@ -1,10 +1,9 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.appointment;
 
-import br.unicamp.cecom.appointmentscheduler.core.enums.Specialty;
-import br.unicamp.cecom.appointmentscheduler.core.features.appointment.AppointmentEntity;
-import br.unicamp.cecom.appointmentscheduler.core.features.appointment.AppointmentRepository;
 import br.unicamp.cecom.appointmentscheduler.core.features.appointment.to.request.CreateAppointmentRequest;
 import br.unicamp.cecom.appointmentscheduler.core.features.appointment.to.request.UpdateAppointmentRequest;
+import br.unicamp.cecom.appointmentscheduler.core.features.doctor.DoctorEntity;
+import br.unicamp.cecom.appointmentscheduler.core.features.doctor.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,28 +23,39 @@ import java.util.UUID;
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final DoctorRepository doctorRepository;
 
     public AppointmentEntity create(final CreateAppointmentRequest request) {
-        return appointmentRepository.save(AppointmentEntity.builder()
-            .appointmentId(UUID.randomUUID())
-            .doctorId(request.getDoctorId())
-            .patientCpf(request.getPatientCpf())
-            .dateTime(request.getDateTime())
-            .build());
+        Optional<DoctorEntity> doctorEntity = doctorRepository.findById(request.getDoctorId());
+        if(doctorEntity.isPresent()) {
+            return appointmentRepository.save(AppointmentEntity.builder()
+                    .appointmentId(UUID.randomUUID())
+                    .doctor(doctorEntity.get())
+                    .patientCpf(request.getPatientCpf())
+                    .dateTime(request.getDateTime())
+                    .build());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.doctor.notFound");
+        }
     }
 
     public void update(final UUID appointmentId, final UpdateAppointmentRequest request) {
+        Optional<DoctorEntity> doctorEntity = doctorRepository.findById(request.getDoctorId());
 
-        try {
-            AppointmentEntity appointment = appointmentRepository.getOne(appointmentId);
+        if(doctorEntity.isPresent()) {
+            try {
+                AppointmentEntity appointment = appointmentRepository.getOne(appointmentId);
 
-            appointment.setDoctorId(request.getDoctorId());
-            appointment.setPatientCpf(request.getPatientCpf());
-            appointment.setDateTime(request.getDateTime());
+                appointment.setDoctor(doctorEntity.get());
+                appointment.setPatientCpf(request.getPatientCpf());
+                appointment.setDateTime(request.getDateTime());
 
-            appointmentRepository.save(appointment);
-        } catch (EntityNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.doctorOrPatient.notFound");
+                appointmentRepository.save(appointment);
+            } catch (EntityNotFoundException e) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.appointment.notFound");
+            }
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "message.appointment.notFound");
         }
     }
 
@@ -71,7 +81,7 @@ public class AppointmentService {
     }
 
     public List<AppointmentEntity> findByDoctorId(final UUID doctorId) {
-        return this.appointmentRepository.findByDoctorId(doctorId);
+        return this.appointmentRepository.findByDoctorDoctorId(doctorId);
     }
 
     public List<AppointmentEntity> findByPatientCpf(final String patientCpf) {

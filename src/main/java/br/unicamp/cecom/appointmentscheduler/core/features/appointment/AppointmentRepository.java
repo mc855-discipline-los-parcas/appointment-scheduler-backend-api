@@ -11,7 +11,7 @@ import java.util.UUID;
 @Transactional
 public interface AppointmentRepository extends JpaRepository<AppointmentEntity, UUID> {
 
-    List<AppointmentEntity> findByDoctorId(final UUID doctorId);
+    List<AppointmentEntity> findByDoctorDoctorId(final UUID doctorId);
 
     List<AppointmentEntity> findByPatientCpf(final String patientCpf);
 }

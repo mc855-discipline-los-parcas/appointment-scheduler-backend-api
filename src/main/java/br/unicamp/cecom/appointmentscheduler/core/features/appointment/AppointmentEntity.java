@@ -1,20 +1,17 @@
 package br.unicamp.cecom.appointmentscheduler.core.features.appointment;
 
 import br.unicamp.cecom.appointmentscheduler.core.features.doctor.DoctorEntity;
-import br.unicamp.cecom.appointmentscheduler.core.features.patient.PatientEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.UUID;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -28,13 +25,16 @@ public class AppointmentEntity {
     private UUID appointmentId;
 
     @NotNull
-    private UUID doctorId;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    @JsonBackReference
+    private DoctorEntity doctor;
 
     private String patientCpf;
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="dd.MM.yyyy hh:mm")
+    @DateTimeFormat
     private Date dateTime;
 
     @PrePersist

@@ -20,6 +20,7 @@ import static org.springframework.http.ResponseEntity.noContent;
 @RestController
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping(value = "/api/v1/doctors", produces = APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class DoctorRestController {
 
     private final DoctorService doctorService;
@@ -57,7 +58,7 @@ public class DoctorRestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping(value = "/specialty")
+    @GetMapping(value = "/specialties")
     public ResponseEntity findBySpecialty(@RequestParam final String specialty){
         return ResponseEntity.ok(doctorService.findBySpecialty(specialty));
     }
